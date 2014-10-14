@@ -22,4 +22,7 @@ if ( $status != 200 ) {
 }
 curl_close($curl);
 return($response);
+
+echo $response;
+
 ?>
