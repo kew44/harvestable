@@ -23,6 +23,10 @@ if ( $status != 200 ) {
 curl_close($curl);
 return($response);
 
-echo $response;
+//echo $response;
+
+echo "<pre>";
+print_r ($response);
+echo "</pre>";
 
 ?>
