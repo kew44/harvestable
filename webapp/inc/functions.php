@@ -1,9 +1,8 @@
 <?php
 
-function show_harvests() {
+function show_harvests($oauth) {
 
-$oauth = new oauth(CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, LOGIN_URL);
-$oauth->auth_with_code();
+
 //$oauth->auth_with_password(USERNAME, PASSWORD, 120);
 
 	$query = "SELECT Account__r.Location__latitude__s,Account__r.Location__longitude__s FROM Harvest__c WHERE Harvest__c.CreatedDate < NEXT_N_DAYS:14";

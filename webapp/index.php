@@ -8,6 +8,8 @@ ini_set('display_startup_errors', TRUE);
 require_once 'config.php';
 require_once 'oauth.php';
 
+$oauth = new oauth(CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, LOGIN_URL);
+$oauth->auth_with_code();
 
 require_once 'inc/db_con.php';
 require_once 'inc/functions.php';
@@ -321,7 +323,7 @@ if(isset($_POST['first_name'])) {
 	var heatmap = new L.TileLayer.WebGLHeatMap({size: 1000}); 
 	
 	//load in the points from Salesforce
-	var dataPoints =[<?php show_harvests();?>[47.5446267,-122.3852719]];
+	var dataPoints =[<?php show_harvests($oauth);?>[47.5446267,-122.3852719]];
 	
 	for (var i = 0, len = dataPoints.length; i < len; i++) {
 		var point = dataPoints[i];
