@@ -62,10 +62,10 @@ class oauth {
                 }
             }
 			
-			echo "<pre>";
-			print_r ($response);
-			echo "</pre>";
-			exit();
+			//echo "<pre>";
+			//print_r ($response);
+			//echo "</pre>";
+			//exit();
             $this->access_token = $response['access_token'];
             $this->refresh_token = $response['refresh_token'];
             $this->instance_url = $response['instance_url'];
