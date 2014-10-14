@@ -3,7 +3,7 @@ require_once "config.php";
 require_once "oauth.php";
 
 $oauth = new oauth(CLIENT_ID, CLIENT_SECRET, CALLBACK_URL);
-$oauth->auth_with_code();
+$oauth->auth_with_password(USERNAME, PASSWORD, 120);
 
 $query = "select name from session__c";
 $url = $oauth->instance_url . "/services/data/v24.0/query?q=" . urlencode($query);
