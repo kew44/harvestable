@@ -3,10 +3,10 @@ require_once "config.php";
 require_once "oauth.php";
 
 $oauth = new oauth(CLIENT_ID, CLIENT_SECRET, CALLBACK_URL);
-$oauth->auth_with_password(USERNAME, PASSWORD, 120);
+$oauth->auth_with_code();
 
-$query = "select name from Accounts";
-$url = $oauth->instance_url . "/services/data/v20.0/query?q=" . urlencode($query);
+$query = "SELECT Name FROM Account";
+$url = $oauth->instance_url . "/services/data/v24.0/query?q=" . urlencode($query);
 $curl = curl_init($url);
 curl_setopt($curl, CURLOPT_HEADER, false);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
