@@ -1,10 +1,17 @@
 <?php
 session_start();
-require_once 'inc/functions.php';
+
+$oauth = new oauth(CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, LOGIN_URL, CACHE_DIR);
+//$oauth->auth_with_code();
+$oauth->auth_with_password(USERNAME, PASSWORD, 120);
+
 require_once 'config.php';
+require_once 'oauth.php';
 require_once 'inc/db_con.php';
-require_once 'authenticate.php';
+require_once 'inc/functions.php';
+//require_once 'authenticate.php';
 ?>
+
 <?php
 if(isset($_POST['first_name'])) {
 
@@ -24,7 +31,6 @@ if(isset($_POST['first_name'])) {
 <?php
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
         <title>HarvesTable</title>
@@ -104,7 +110,13 @@ if(isset($_POST['first_name'])) {
 			right:8px;
 			font-family: 'Roboto', sans-serif;
 		}
-		
+			.green {
+				color:green;
+			}
+			
+			.red{
+				color:red;
+			}
 		  </style>
 		 
     </head>
@@ -207,10 +219,47 @@ if(isset($_POST['first_name'])) {
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 				</div>
 			</div>
-			
-			
-
-
+			<div class="form-group">
+				<label class="control-label col-sm-4" for="dropoff">Location</label>
+				<div class="col-sm-6">
+					<span id="location_status" class=""></span>
+				</div>
+			</div>
+			<script src="js/geoPosition.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript">
+			if(geoPosition.init()){
+				//geoPosition.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
+			}
+			else{
+				document.getElementById('location_status').style.display = 'block';
+				document.getElementById('location_status').innerHTML = 'Your location not available';
+				var d = document.getElementById("location_status");
+				d.className = "red";
+			}
+			function success_callback(p)
+			{
+				var latitude = parseFloat( p.coords.latitude ).toFixed(2);
+				var longitude = parseFloat( p.coords.longitude ).toFixed(2);
+				document.getElementById('lat').value = latitude;
+				document.getElementById('long').value = longitude;
+				
+				//document.getElementById('latitude').innerHTML = '<span class="information">Latitude:</span>' + latitude;
+				//document.getElementById('longitude').innerHTML = '<span class="information">Longitude:</span>' + longitude;	
+				document.getElementById('location_status').style.display = 'block';
+				document.getElementById('location_status').innerHTML = 'Success! We have your location.';
+				
+				
+				var d = document.getElementById("location_status");
+				d.className = "green";
+			}
+			function error_callback(p)
+			{
+				document.getElementById('location_status').style.display = 'block';
+				document.getElementById('location_status').innerHTML = p.message;	
+				var d = document.getElementById("location_status");
+				d.className = "red";
+			}	
+			</script>	
 			<div class="form-group">
 				<label class="control-label col-md-4" for="phone">Neighborhood</label>
 				<div class="col-md-6">
@@ -227,6 +276,8 @@ if(isset($_POST['first_name'])) {
 					<button type="submit" value="Submit" class="btn btn-custom pull-right btn-success" id="send_btn">Send</button>
 				</div>
 			</div>
+			<input type="hidden" id="lat" name="lat"/>
+			<input type="hidden" id="long" name="long"/>
 		</form>
         </div><!-- End of Modal body -->
         </div><!-- End of Modal content -->
@@ -268,7 +319,7 @@ if(isset($_POST['first_name'])) {
 	var heatmap = new L.TileLayer.WebGLHeatMap({size: 1000}); 
 	
 	//load in the points from Salesforce
-	var dataPoints =[<?php show_harvests($instance_url, $access_token);?>[47.5446267,-122.3852719]];
+	var dataPoints =[<?php show_harvests($oauth);?>[47.5446267,-122.3852719]];
 	
 	for (var i = 0, len = dataPoints.length; i < len; i++) {
 		var point = dataPoints[i];

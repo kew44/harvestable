@@ -1,20 +1,22 @@
 <?php
-function show_harvests($instance_url, $access_token) {
-    $query = "SELECT Account__r.Location__latitude__s,Account__r.Location__longitude__s FROM Harvest__c WHERE Harvest__c.CreatedDate < NEXT_N_DAYS:14";
-    $url = "$instance_url/services/data/v20.0/query?q=" . urlencode($query);
 
+function show_harvests($oauth) {
+	$query = "SELECT Account__r.Location__latitude__s,Account__r.Location__longitude__s FROM Harvest__c WHERE Harvest__c.CreatedDate < NEXT_N_DAYS:14";
+	$url = $oauth->instance_url . "/services/data/v24.0/query?q=" . urlencode($query);
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_HEADER, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER,
-            array("Authorization: OAuth $access_token"));
+	curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: OAuth " . $oauth->access_token));
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+	$response = json_decode(curl_exec($curl), true);
+	
+	if ( $status != 200 ) {
+    die("<h1>Curl Error</h1><p>URL : " . $url . "</p><p>Status : " . $status . "</p><p>response : error = " . $response['error'] . ", error_description = " . $response['error_description'] . "</p><p>curl_error : " . curl_error($curl) . "</p><p>curl_errno : " . curl_errno($curl) . "</p>");
+	}
 
-    $json_response = curl_exec($curl);
+    //$json_response = curl_exec($curl);
     curl_close($curl);
-
-    $response = json_decode($json_response, true);
-
+    //$response = json_decode($json_response, true);
     //$total_size = $response['totalSize'];
 	
 	$response = $response['records'];
