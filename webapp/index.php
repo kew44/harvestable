@@ -11,7 +11,7 @@ $oauth = new oauth(CLIENT_ID, CLIENT_SECRET, CALLBACK_URL);
 $oauth->auth_with_code();
 
 $query = "SELECT Name FROM Account";
-$url = $oauth->instance_url . "/services/data/v24.0/query?q=" . urlencode($query);
+$url = $oauth->instance_url . "/services/data/v29.0/query?q=" . urlencode($query);
 $curl = curl_init($url);
 curl_setopt($curl, CURLOPT_HEADER, false);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
