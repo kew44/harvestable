@@ -62,7 +62,7 @@ class oauth {
                 }
             }
             $this->access_token = $response['access_token'];
-            $this->refresh_token = $response['refresh_token'];
+            //$this->refresh_token = $response['refresh_token'];
             $this->instance_url = $response['instance_url'];
             $this->save_to_session();
         }
