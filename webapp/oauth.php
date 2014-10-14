@@ -27,7 +27,7 @@ class oauth {
     }
 
     public function auth_with_code($lifetime = 60){
-        session_start();
+        
         $this->read_cache_from_session();
         $this->refresh_cache_on_session($lifetime);
         if ($this->error){
