@@ -66,11 +66,11 @@ function create_lead($first_name, $last_name, $organization, $phone, $twitter, $
 
     //$response = json_decode($json_response, true);
 	//$response = $response['records'];
-    $id = $response["id"];
+    //$id = $response["id"];
 
     //echo "New record id $id<br/><br/>";
 
-    return $id;
+    //return $id;
 }
 
 function sendSMS($to_sms_num, $message_text)

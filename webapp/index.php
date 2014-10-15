@@ -29,11 +29,7 @@ if(isset($_POST['first_name'])) {
 	
 	if (($_POST['first_name'] != '') && ($_POST['last_name'] != '') && ($_POST['organization'] != ''))
 	{
-	$id = create_lead($first_name, $last_name, $organization, $phone, $twitter, $neighborhood, $oauth);
-	
-	echo "<script>";
-	echo "alert('$id');";
-	echo "</script>";
+	create_lead($first_name, $last_name, $organization, $phone, $twitter, $neighborhood, $oauth);
 	}
 ?>
  
