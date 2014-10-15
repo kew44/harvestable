@@ -228,13 +228,15 @@ if(isset($_POST['first_name'])) {
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 				</div>
 			</div>
+			<!--
 			<div class="form-group">
 				<label class="control-label col-sm-4" for="dropoff">Location</label>
 				<div class="col-sm-6">
 					<span id="location_status" class=""></span>
 				</div>
 			</div>
-			<script src="js/geoPosition.js" type="text/javascript" charset="utf-8"></script>
+			-->
+			<!--<script src="js/geoPosition.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript">
 			if(geoPosition.init()){
 				//geoPosition.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
@@ -279,7 +281,7 @@ if(isset($_POST['first_name'])) {
 				</select> 	
 				</div>
 			</div>
-
+			-->
 			<div class="form-group">
 				<div class="col-md-10">
 					<button type="submit" value="Submit" class="btn btn-custom pull-right btn-success" id="send_btn">Send</button>
