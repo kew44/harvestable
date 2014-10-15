@@ -9,7 +9,8 @@ require_once 'config.php';
 require_once 'oauth.php';
 
 $oauth = new oauth(CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, LOGIN_URL);
-$oauth->auth_with_code();
+//$oauth->auth_with_code();
+$oauth->auth_with_password(USERNAME, PASSWORD, 120);
 
 require_once 'inc/db_con.php';
 require_once 'inc/functions.php';
