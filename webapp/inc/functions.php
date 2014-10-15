@@ -3,6 +3,7 @@
 function show_harvests($oauth) {
 
 	$query = "SELECT Account__r.Location__latitude__s,Account__r.Location__longitude__s FROM Harvest__c WHERE Harvest__c.CreatedDate < NEXT_N_DAYS:14";
+	
 	$url = $oauth->instance_url . "/services/data/v24.0/query?q=" . urlencode($query);
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_HEADER, false);
@@ -130,22 +131,20 @@ function create_contact($first_name, $last_name, $organization, $phone, $twitter
     return $id;
 }
 
-function get_leads_to_alert($neighborhood, $instance_url, $access_token) {
+function get_leads_to_alert($neighborhood, $oauth) {
     $query = "SELECT Id, MobilePhone, Notify_Neighborhood__c,twitter__c FROM Lead WHERE Notify_Neighborhood__c = '$neighborhood'";
 	
-    $url = "$instance_url/services/data/v20.0/query?q=" . urlencode($query);
-
+    $url = $oauth->instance_url . "/services/data/v24.0/query?q=" . urlencode($query);
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_HEADER, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER,
-            array("Authorization: OAuth $access_token"));
+	curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: OAuth " . $oauth->access_token));
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-    $json_response = curl_exec($curl);
-    curl_close($curl);
-
-    $response = json_decode($json_response, true);
+	$response = json_decode(curl_exec($curl), true);
+	$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+	if ( $status != 200 ) {
+    die("<h1>Curl Error</h1><p>URL : " . $url . "</p><p>Status : " . $status . "</p><p>response : error = " . $response['error'] . ", error_description = " . $response['error_description'] . "</p><p>curl_error : " . curl_error($curl) . "</p><p>curl_errno : " . curl_errno($curl) . "</p>");
+	}
 
     //$total_size = $response['totalSize'];
 
@@ -153,23 +152,20 @@ function get_leads_to_alert($neighborhood, $instance_url, $access_token) {
 
 }
 
-function get_harvest_details($Id, $instance_url, $access_token) {
+function get_harvest_details($Id, $oauth) {
     $query = "SELECT Id, Date_Available__c, Fruit_Type__c, Pounds__c, Account__r.Neighborhood__c,Availability__c FROM Harvest__c WHERE Id = '$Id'";
 	
-    $url = "$instance_url/services/data/v20.0/query?q=" . urlencode($query);
-
+    $url = $oauth->instance_url . "/services/data/v24.0/query?q=" . urlencode($query);
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_HEADER, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER,
-            array("Authorization: OAuth $access_token"));
+	curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: OAuth " . $oauth->access_token));
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-    $json_response = curl_exec($curl);
-    curl_close($curl);
-
-    $response = json_decode($json_response, true);
-
+	$response = json_decode(curl_exec($curl), true);
+	$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+	if ( $status != 200 ) {
+    die("<h1>Curl Error</h1><p>URL : " . $url . "</p><p>Status : " . $status . "</p><p>response : error = " . $response['error'] . ", error_description = " . $response['error_description'] . "</p><p>curl_error : " . curl_error($curl) . "</p><p>curl_errno : " . curl_errno($curl) . "</p>");
+	}
     //$total_size = $response['totalSize'];
 
 	$response = $response['records'];
@@ -210,7 +206,7 @@ function shortenUrl($longurl)
 	 
 }
 
-function insert_request($harvest_id, $instance_url, $access_token) {
+function insert_request($harvest_id, $oauth) {
     $query = "INSERT INTO Request__C (Harvest__c, Organization__c) VALUES ('$harvest_id','This One')";
 	
     $url = "$instance_url/services/data/v20.0/query?q=" . urlencode($query);

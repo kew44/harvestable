@@ -5,7 +5,13 @@ require_once('lib/twilio/Services/Twilio.php');
 require_once('config.php');
 require_once 'inc/db_con.php';
 require_once('inc/functions.php');
-require_once 'authenticate.php';
+
+require_once 'oauth.php';
+
+$oauth = new oauth(CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, LOGIN_URL);
+//$oauth->auth_with_code();
+$oauth->auth_with_password(USERNAME, PASSWORD, 120);
+
 
 // Set twitter keys
 $consumerKey = '4jcLU3bRF9IkZTz8wb5vl9d0l';
@@ -15,7 +21,7 @@ $accessTokenSecret = 'LR1LqRBLYaCcpJHLQ4rTe5lT2YrSDdDjSQzCbKvh92fAf';
 
 $body = file_get_contents('php://input');
 
-$response = get_harvest_details($body, $instance_url, $access_token);
+$response = get_harvest_details($body, $oauth);
 
 echo "<pre>";
 print_r ($response);
@@ -43,7 +49,7 @@ foreach($response as $key=>$value){
   }
 }
 
-$response = get_leads_to_alert($hood, $instance_url, $access_token);
+$response = get_leads_to_alert($hood, $oauth);
 
 echo "<pre>";
 print_r ($response);
@@ -60,7 +66,7 @@ foreach($response as $key=>$value){
 	foreach($value as $k => $v){
 		if ($k == 'Id') {
 			$id = $v;
-			$url_to_shorten = "https://secure-earth-8932.herokuapp.com/need.php?HarvestId=" . $body;
+			$url_to_shorten = APP_URL . "/need.php?HarvestId=" . $body;
 			$short_url = shortenUrl($url_to_shorten);
 		}elseif ($k == 'MobilePhone') {
 			//echo "Send to:" . $v . "<br>";
