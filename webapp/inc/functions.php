@@ -65,7 +65,7 @@ function create_lead($first_name, $last_name, $organization, $phone, $twitter, $
     curl_close($curl);
 
     //$response = json_decode($json_response, true);
-	$response = $response['records'];
+	//$response = $response['records'];
     $id = $response["id"];
 
     //echo "New record id $id<br/><br/>";

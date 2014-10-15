@@ -271,6 +271,7 @@ if(isset($_POST['first_name'])) {
 				d.className = "red";
 			}	
 			</script>	
+			-->
 			<div class="form-group">
 				<label class="control-label col-md-4" for="phone">Neighborhood</label>
 				<div class="col-md-6">
@@ -281,7 +282,7 @@ if(isset($_POST['first_name'])) {
 				</select> 	
 				</div>
 			</div>
-			-->
+			
 			<div class="form-group">
 				<div class="col-md-10">
 					<button type="submit" value="Submit" class="btn btn-custom pull-right btn-success" id="send_btn">Send</button>
