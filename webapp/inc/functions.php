@@ -52,7 +52,12 @@ function create_lead($first_name, $last_name, $organization, $phone, $twitter, $
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_HEADER, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: OAuth " . $oauth->access_token));
+	
+	curl_setopt($curl, CURLOPT_HTTPHEADER,
+            array("Authorization: OAuth $oauth->access_token",
+                "Content-type: application/json"));
+	curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 	$response = json_decode(curl_exec($curl), true);
 	$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
