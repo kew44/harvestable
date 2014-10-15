@@ -3,13 +3,19 @@ session_start();
 require_once 'inc/functions.php';
 require_once 'config.php';
 require_once 'inc/db_con.php';
-require_once 'authenticate.php';
+
+require_once 'oauth.php';
+
+$oauth = new oauth(CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, LOGIN_URL);
+//$oauth->auth_with_code();
+$oauth->auth_with_password(USERNAME, PASSWORD, 120);
+
 
 if (!empty($_GET['HarvestId']))
 {
 $HarvestID = $_GET['HarvestId'];
 
-$response = get_harvest_details($HarvestID, $instance_url, $access_token);
+$response = get_harvest_details($HarvestID, $oauth);
 
 //echo "<pre>";
 //print_r ($response);
