@@ -62,7 +62,7 @@ function create_lead($first_name, $last_name, $organization, $phone, $twitter, $
 	$response = json_decode(curl_exec($curl), true);
 	$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 	//201 is returned on insert actions
-	if ( $status != 200 ) || ( $status != 201 ){
+	if (( $status != 200 ) && ( $status != 201 )){
     die("<h1>Curl Error</h1><p>URL : " . $url . "</p><p>Status : " . $status . "</p><p>response : error = " . $response['error'] . ", error_description = " . $response['error_description'] . "</p><p>curl_error : " . curl_error($curl) . "</p><p>curl_errno : " . curl_errno($curl) . "</p>");
 	}
     
