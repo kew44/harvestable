@@ -2,9 +2,6 @@
 
 function show_harvests($oauth) {
 
-
-//$oauth->auth_with_password(USERNAME, PASSWORD, 120);
-
 	$query = "SELECT Account__r.Location__latitude__s,Account__r.Location__longitude__s FROM Harvest__c WHERE Harvest__c.CreatedDate < NEXT_N_DAYS:14";
 	$url = $oauth->instance_url . "/services/data/v24.0/query?q=" . urlencode($query);
     $curl = curl_init($url);
@@ -48,28 +45,20 @@ function show_harvests($oauth) {
 	}
 }
 
-function create_lead($first_name, $last_name, $organization, $phone, $twitter, $neighborhood, $instance_url, $access_token) {
-    $url = "$instance_url/services/data/v20.0/sobjects/Lead/";
-	
+function create_lead($first_name, $last_name, $organization, $phone, $twitter, $neighborhood, $oauth) {
+    $url = $oauth->instance_url . "/services/data/v24.0/sobjects/Lead/";
     $content = json_encode(array("FirstName" => $first_name,"LastName" => $last_name,"MobilePhone" => $phone,"Twitter__c" => $twitter,"Notify_Neighborhood__c" => $neighborhood,"Company" => $organization,"LeadSource" => "Harvest Notify"));
 
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_HEADER, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER,
-            array("Authorization: OAuth $access_token",
-                "Content-type: application/json"));
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+	curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: OAuth " . $oauth->access_token));
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-    $json_response = curl_exec($curl);
-
-    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-    if ( $status != 201 ) {
-        die("Error: call to URL $url failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
-    }
+	$response = json_decode(curl_exec($curl), true);
+	$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+	if ( $status != 200 ) {
+    die("<h1>Curl Error</h1><p>URL : " . $url . "</p><p>Status : " . $status . "</p><p>response : error = " . $response['error'] . ", error_description = " . $response['error_description'] . "</p><p>curl_error : " . curl_error($curl) . "</p><p>curl_errno : " . curl_errno($curl) . "</p>");
+	}
     
     //echo "HTTP status $status creating lead<br/><br/>";
 
