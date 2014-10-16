@@ -99,6 +99,9 @@ if(isset($_POST['first_name'])) {
 			.modal-title,.control-label{
 				font-family: 'Roboto', sans-serif;
 			}
+			.modal-title p{
+				font-family: 'Roboto', sans-serif;
+			}
 			.overlay {
 			width: 300px;
 			position:absolute; 
