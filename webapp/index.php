@@ -99,7 +99,7 @@ if(isset($_POST['first_name'])) {
 			.modal-title,.control-label{
 				font-family: 'Roboto', sans-serif;
 			}
-			.modal-title p{
+			.modal-header p{
 				font-family: 'Roboto', sans-serif;
 			}
 			.overlay {
