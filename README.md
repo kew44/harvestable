@@ -7,7 +7,7 @@ http://challengepost.com/software/harvestable
 
 ## Technical
 
-The application uses leaflet, Bootstrap, PHP, Postgres, Twilio and the Salesforce REST API.  Relies on some apex trigger code on Salesforce objects and application configuration within Salesforce to enable OAuth authentication.  
+The application uses leaflet, Bootstrap, PHP, Postgres, Twilio and the Salesforce REST API.  Relies on some apex trigger code on Salesforce objects (located in the Salesforce folder) and application configuration within Salesforce to enable OAuth authentication.  
 
 It is designed to be easily hosted on Heroku.
 
