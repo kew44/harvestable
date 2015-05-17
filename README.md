@@ -15,5 +15,8 @@ This said, I should mention that this application, with minimal modification, co
 
 Screenshots from the application:
 
-![Public Interface](https://octodex.github.com/images/yaktocat.png)
+![Public Interface](https://raw.githubusercontent.com/kaypro4/harvestable/master/images/gallery1.jpg)
+![Subscribe](https://raw.githubusercontent.com/kaypro4/harvestable/master/images/gallery2.jpg)
+![Text Alert](https://raw.githubusercontent.com/kaypro4/harvestable/master/images/gallery3.jpg)
+![Request Delivery](https://raw.githubusercontent.com/kaypro4/harvestable/master/images/gallery4.jpg)
 
