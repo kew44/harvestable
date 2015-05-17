@@ -15,8 +15,12 @@ This said, I should mention that this application, with minimal modification, co
 
 Screenshots from the application:
 
+*Public Interface*
 ![Public Interface](https://raw.githubusercontent.com/kaypro4/harvestable/master/images/gallery1.jpg)
+*Subscribe*
 ![Subscribe](https://raw.githubusercontent.com/kaypro4/harvestable/master/images/gallery2.jpg)
+*Text Alert*
 ![Text Alert](https://raw.githubusercontent.com/kaypro4/harvestable/master/images/gallery3.jpg)
+*Request Delivery*
 ![Request Delivery](https://raw.githubusercontent.com/kaypro4/harvestable/master/images/gallery4.jpg)
 
