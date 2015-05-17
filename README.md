@@ -5,6 +5,14 @@ This application took home a prize in the 2014 Salesforce Hackathon.  More infor
 
 http://challengepost.com/software/harvestable
 
+## Technical
+
+The application uses leaflet, Bootstrap, PHP, Postgres, Twilio and the Salesforce REST API.  Relies on some apex trigger code on Salesforce objects and application configuration within Salesforce to enable OAuth authentication.  
+
+It is designed to be easily hosted on Heroku.
+
+## Motivation & Background
+
 The idea for this app came from my volunteer work with City Fruit, a non-profit organization that harvests backyard fruit in 5 Seattle neighborhoods and delivers it to food banks, shelters, senior centers, and others.
 
 Our 3 harvesters, that already use Salesforce1 to log their harvests and deliveries, and donation site coordinators are the target users. Currently these coordinators have limited ability to see what we are harvesting in their area and to request that we deliver them fruit. This leads to missed opportunities to keep the fruit as local as possible, causes smaller organizations to get passed over, and leaves our harvesters to spend too much time on delivery logistics.
@@ -13,7 +21,7 @@ I was inspired by the amazing work that both the City Fruit team and the donatio
 
 This said, I should mention that this application, with minimal modification, could be of use to outside sales staff in the private sector as well. Imagine a pharmaceutical company representative logging their upcoming time in a particular reqion, generating a text and/or tweet that would allow customers that have signed up to easily update their preferences for a sales call.
 
-Screenshots from the application:
+## Screenshots
 
 *Public Interface - shows current harvest data from Salesforce using heatmap*
 
