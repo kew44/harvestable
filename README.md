@@ -15,15 +15,15 @@ This said, I should mention that this application, with minimal modification, co
 
 Screenshots from the application:
 
-*Public Interface*
+*Public Interface - shows current harvest data from Salesforce using heatmap*
 
 ![Public Interface](https://raw.githubusercontent.com/kaypro4/harvestable/master/images/gallery1.jpg)
 
-*Subscribe*
+*Subscribe to text alerts by neighborhood*
 
 ![Subscribe](https://raw.githubusercontent.com/kaypro4/harvestable/master/images/gallery2.jpg)
 
-*Text Alert*
+*Text Alert when harvest recorded in Salesforce*
 
 ![Text Alert](https://raw.githubusercontent.com/kaypro4/harvestable/master/images/gallery3.jpg)
 
