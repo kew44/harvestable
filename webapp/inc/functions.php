@@ -82,9 +82,9 @@ function create_lead($first_name, $last_name, $organization, $phone, $twitter, $
 
 function sendSMS($to_sms_num, $message_text)
 {	
-$account_sid = 'AC3e3f22c35645d99153c32392db9bdabe';
-$auth_token = '8b97116e9407ff7946ab3118e0925124';
-$from_sms_num = '2064960618';
+$account_sid = 'XXX';
+$auth_token = 'XXX';
+$from_sms_num = 'XXX';
 
 $client = new Services_Twilio($account_sid, $auth_token);
 $message = $client->account->messages->sendMessage(
@@ -180,7 +180,7 @@ function shortenUrl($longurl)
 	$longurl = htmlspecialchars($longurl);
 
 	// Get API key from : http://code.google.com/apis/console/
-	$apiKey = 'AIzaSyBWcV2XS6JS6Z1Ref9pc9zU1Pa_P5u3Lf0';
+	$apiKey = 'XX';
 
 	$postData = array('longUrl' => $longurl, 'key' => $apiKey);
 	$jsonData = json_encode($postData);
